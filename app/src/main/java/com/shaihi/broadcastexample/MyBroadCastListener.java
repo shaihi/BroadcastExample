@@ -8,8 +8,10 @@ import android.widget.Toast;
 public class MyBroadCastListener extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")) {
-            Toast.makeText(context, "Connectivity changed!", Toast.LENGTH_SHORT).show();
-        }
+        int level = intent.getIntExtra("level", -1);
+        int scale = intent.getIntExtra("scale", -1);
+        int batteryPct = (int) ((level / (float) scale) * 100);
+
+        Toast.makeText(context, "Battery level: " + batteryPct + "%", Toast.LENGTH_LONG).show();
     }
 }
